@@ -22,6 +22,12 @@ SET time_zone = "+00:00";
 -- Database: `gestion_absence`
 --
 
+drop schema if exists gestion_absence;
+
+create schema gestion_absence;
+
+use gestion_absence;
+
 -- --------------------------------------------------------
 
 --
@@ -56,6 +62,7 @@ CREATE TABLE IF NOT EXISTS `user` (
   `Date_Fin_scolaire` date DEFAULT NULL,
   `Role` varchar(40) NOT NULL,
   `password` varchar(30) NOT NULL,
+  `id_promo` int(10),
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb4;
 
@@ -84,9 +91,9 @@ CREATE TABLE IF NOT EXISTS `Departement`(
 ALTER TABLE `presence`
   ADD CONSTRAINT `presence_ibfk_1` FOREIGN KEY (`id_Formateur`) REFERENCES `user` (`id`),
   ADD CONSTRAINT `presence_ibfk_2` FOREIGN KEY (`id_apprenant`) REFERENCES `user` (`id`);
+  ADD CONSTRAINT `Promo_ibfk_2` FOREIGN KEY (`id_promo`) REFERENCES `Promo` (`id_promo`),
 ALTER TABLE `Promo`
   ADD CONSTRAINT `Promo_ibfk_1` FOREIGN KEY (`id_user_formateur`) REFERENCES `user` (`id`),
-  ADD CONSTRAINT `Promo_ibfk_2` FOREIGN KEY (`id_user_Apprenant`) REFERENCES `user` (`id`),
   ADD CONSTRAINT `Constraint_id_dep` FOREIGN KEY (`id_Dep`) REFERENCES `Departement` (`id_dep`);
 COMMIT;
 
