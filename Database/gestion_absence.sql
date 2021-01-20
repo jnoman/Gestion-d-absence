@@ -92,7 +92,7 @@ ALTER TABLE `presence`
   ADD CONSTRAINT `presence_ibfk_1` FOREIGN KEY (`id_Formateur`) REFERENCES `user` (`id`),
   ADD CONSTRAINT `presence_ibfk_2` FOREIGN KEY (`id_apprenant`) REFERENCES `user` (`id`);
 ALTER TABLE `user`
-  ADD CONSTRAINT `Promo_ibfk_2` FOREIGN KEY (`id_promo`) REFERENCES `Promo` (`id_promo`),
+  ADD CONSTRAINT `Promo_ibfk_2` FOREIGN KEY (`id_promo`) REFERENCES `Promo` (`id_promo`);
 ALTER TABLE `Promo`
   ADD CONSTRAINT `Promo_ibfk_1` FOREIGN KEY (`id_user_formateur`) REFERENCES `user` (`id`),
   ADD CONSTRAINT `Constraint_id_dep` FOREIGN KEY (`id_Dep`) REFERENCES `Departement` (`id_dep`);
