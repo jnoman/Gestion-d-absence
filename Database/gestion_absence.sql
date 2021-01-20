@@ -58,8 +58,6 @@ CREATE TABLE IF NOT EXISTS `user` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
   `nom_complet` varchar(20) NOT NULL,
   `Email` varchar(50) NOT NULL Unique,
-  `Date_debut_scolaire` date DEFAULT NULL,
-  `Date_Fin_scolaire` date DEFAULT NULL,
   `Role` varchar(40) NOT NULL,
   `password` varchar(30) NOT NULL,
   `id_promo` int(10),
@@ -69,6 +67,8 @@ CREATE TABLE IF NOT EXISTS `user` (
 CREATE TABLE IF NOT EXISTS `Promo`(
   `id_promo` int(10) NOT NULL AUTO_INCREMENT,
   `nom_promo` varchar(20) NOT NULL,
+  `Date_debut_scolaire` date DEFAULT NULL,
+  `Date_Fin_scolaire` date DEFAULT NULL,
   id_Dep int,
   id_user_formateur int,
   id_user_Apprenant int,

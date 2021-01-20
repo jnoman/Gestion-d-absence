@@ -1,4 +1,4 @@
-package application;
+package Models;
 
 public class Formateur extends User {
 	public Formateur(int id, String nomComplet, String email) {

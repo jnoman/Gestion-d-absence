@@ -1,22 +1,8 @@
-package application;
+package Models;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
+import java.util.ArrayList;
 
 public class DatabaseConnection implements InterfaceDb {
-
-	@Override
-	public Connection getConnection() {
-		Connection con = null;
-		try {
-			Class.forName("com.mysql.jdbc.Driver");
-			con =DriverManager.getConnection("jdbc:mysql://localhost:3306/skills", "root","");
-		} catch (SQLException | ClassNotFoundException e) {
-			System.out.println(e.toString());;
-		}
-		return con;
-	}
 
 	@Override
 	public int authentification() {
@@ -25,15 +11,15 @@ public class DatabaseConnection implements InterfaceDb {
 	}
 
 	@Override
-	public void getDepartement() {
+	public ArrayList<Departement> getDepartement() {
 		// TODO Auto-generated method stub
-		
+		return null;
 	}
 
 	@Override
-	public void getPromotion() {
+	public ArrayList<Promo> getPromotion() {
 		// TODO Auto-generated method stub
-		
+		return null;
 	}
 
 	@Override
@@ -43,9 +29,9 @@ public class DatabaseConnection implements InterfaceDb {
 	}
 
 	@Override
-	public void getApprenant() {
+	public ArrayList<Apprenant> getApprenant() {
 		// TODO Auto-generated method stub
-		
+		return null;
 	}
 
 	@Override
@@ -55,9 +41,9 @@ public class DatabaseConnection implements InterfaceDb {
 	}
 
 	@Override
-	public int getListAbsence() {
+	public ArrayList<Presence> getListAbsence() {
 		// TODO Auto-generated method stub
-		return 0;
+		return null;
 	}
 
 	@Override
@@ -67,8 +53,10 @@ public class DatabaseConnection implements InterfaceDb {
 	}
 
 	@Override
-	public void getFichePresence() {
+	public ArrayList<Presence> getFichePresence() {
 		// TODO Auto-generated method stub
-		
+		return null;
 	}
+
+	
 }

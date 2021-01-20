@@ -1,4 +1,4 @@
-package application;
+package Models;
 
 public class Secretaire extends User {
    	private int idDepartement;

@@ -1,4 +1,4 @@
-package application;
+package Models;
 
 
 public class Presence {
