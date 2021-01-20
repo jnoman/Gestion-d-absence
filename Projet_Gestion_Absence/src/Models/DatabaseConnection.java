@@ -6,11 +6,8 @@ import java.util.ArrayList;
 
 public class DatabaseConnection implements InterfaceDb {
 
-
-
-	
 	@Override
-	public int authentification() {
+	public int authentification(String email, String password) {
 		// TODO Auto-generated method stub
 		return 0;
 	}
@@ -22,46 +19,51 @@ public class DatabaseConnection implements InterfaceDb {
 	}
 
 	@Override
-	public ArrayList<Promo> getPromotion() {
+	public ArrayList<Promo> getPromotion(int idDepartement) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public User inscription() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public ArrayList<Apprenant> getApprenant() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public int addAbsence() {
+	public int inscription(User user) {
 		// TODO Auto-generated method stub
 		return 0;
 	}
 
 	@Override
-	public ArrayList<Presence> getListAbsence() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public int justifierAbsence() {
+	public int cratePromo(Promo promo) {
 		// TODO Auto-generated method stub
 		return 0;
 	}
 
 	@Override
-	public ArrayList<Presence> getFichePresence() {
+	public ArrayList<Apprenant> getApprenant(int idPromo) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	
+	@Override
+	public int addAbsence(Presence presence) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public ArrayList<Presence> getListAbsence(int idApprenant) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public int justifierAbsence(int idPresence) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public ArrayList<Presence> getFichePresence(int idApprenant) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }
