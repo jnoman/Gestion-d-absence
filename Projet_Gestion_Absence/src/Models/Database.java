@@ -1,16 +1,20 @@
 package Models;
 
 import java.sql.Connection;
+import java.sql.DriverManager;
 
 public class Database {
-	private String url;
-	private String user;
-	private String pwd;
-	Connection con;
-	public Database(){
-		super();
-		this.url = "jdbc:mysql://localhost:3306/gestion_absence";
-		this.user = "root";
-		this.pwd = "";
-	}
+	public  Connection conx;
+    public  Connection getConnection(){
+    String dbName="gestion_absence";
+    String user="root";
+    String password="";
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+             conx=DriverManager.getConnection("jdbc:mysql://localhost:3306/"+dbName,user,password);
+        } catch (Exception ex) {
+           System.out.print(ex); ;
+        }
+        return conx;
+    }
 }
