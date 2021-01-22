@@ -58,28 +58,28 @@ public class FXMLDocumentController implements Initializable {
         ResultSet res= statement.executeQuery(sql);
         if(res.next()){
          if(res.getString("role").equals("apprenant")){
-              Parent PageApprenant=FXMLLoader.load(getClass().getResource("pageApprenant.fxml"));
+              Parent PageApprenant=FXMLLoader.load(getClass().getResource("../View/pageApprenant.fxml"));
               Scene s=new Scene(PageApprenant);
               Stage page=(Stage)((Node)event.getSource()).getScene().getWindow();
               page.setScene(s);
               page.show();
         }  
         if(res.getString("role").equals("formateur")){
-               Parent PageFormateur=FXMLLoader.load(getClass().getResource("pageFormateur.fxml"));
+               Parent PageFormateur=FXMLLoader.load(getClass().getResource("../View/pageFormateur.fxml"));
               Scene s=new Scene(PageFormateur);
               Stage page=(Stage)((Node)event.getSource()).getScene().getWindow();
               page.setScene(s);
               page.show();
         }
          if(res.getString("role").equals("admin")){
-              Parent PageAdmin=FXMLLoader.load(getClass().getResource("pageAdmin.fxml"));
+              Parent PageAdmin=FXMLLoader.load(getClass().getResource("../View/pageAdmin.fxml"));
               Scene s=new Scene(PageAdmin);
               Stage page=(Stage)((Node)event.getSource()).getScene().getWindow();
               page.setScene(s);
               page.show();
         }
           if(res.getString("role").equals("secretere")){
-             Parent PageSecretere=FXMLLoader.load(getClass().getResource("pageSecretere.fxml"));
+             Parent PageSecretere=FXMLLoader.load(getClass().getResource("../View/pageSecretere.fxml"));
               Scene s=new Scene(PageSecretere);
               Stage page=(Stage)((Node)event.getSource()).getScene().getWindow();
               page.setScene(s);

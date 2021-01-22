@@ -7,6 +7,10 @@
 package Controller;
 import java.net.URL;
 import java.util.ResourceBundle;
+
+import org.apache.commons.lang3.RandomStringUtils;
+
+import application.Main;
 import javafx.fxml.Initializable;
 
 /**
@@ -21,7 +25,12 @@ public class PageAdminController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+        Main.getAlert(generatePassword(), "password");
     }    
+    
+    public String generatePassword() {
+    	String characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%&?";
+    	return RandomStringUtils.random( 12, characters );
+    }
     
 }

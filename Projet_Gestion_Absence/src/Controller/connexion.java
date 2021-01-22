@@ -15,8 +15,8 @@ public class connexion {
     String user="root";
     String password="";
         try {
-            Class.forName("com.mysql.jdbc.Driver");
-             conx=DriverManager.getConnection("jdbc:mysql://localhost/"+dbName,user,password);
+            Class.forName("com.mysql.cj.jdbc.Driver");
+             conx=DriverManager.getConnection("jdbc:mysql://localhost:3306/"+dbName,user,password);
         } catch (Exception ex) {
            System.out.print(ex); ;
         }
