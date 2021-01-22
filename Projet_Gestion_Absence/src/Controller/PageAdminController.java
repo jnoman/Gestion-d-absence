@@ -41,24 +41,19 @@ public class PageAdminController implements Initializable {
         try {            
         	HtmlEmail  email = new HtmlEmail();
             
-            // Configuration
             email.setHostName("smtp.googlemail.com");
             email.setSmtpPort(465);
             email.setAuthenticator(new DefaultAuthenticator("gestion.absence.youcode@gmail.com", "M4$H7gB%p8QZ"));
             email.setSSLOnConnect(true);
             
-            // Sender
             email.setFrom("gestion.absence.youcode@gmail.com");
             
-            // Email title
             email.setSubject("votre account d'absence");
             
-            // Email message.
             email.setHtmlMsg("<html><h2>bonjour : "+nomComplet+"</h2><br/><p>username : "+addresseMail+"</p><br/> <p>mot de passe : "+password+"</p> </html>");
-            // Receiver
+            
             email.addTo(addresseMail);            
             email.send();
-            System.out.println("Sent!!");
         } catch (Exception e) {
             e.printStackTrace();
         }

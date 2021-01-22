@@ -3,6 +3,8 @@ package Models;
 import java.sql.Connection;
 import java.sql.DriverManager;
 
+import application.Main;
+
 public class Database {
 	public  Connection conx;
     public  Connection getConnection(){
@@ -13,7 +15,7 @@ public class Database {
             Class.forName("com.mysql.cj.jdbc.Driver");
              conx=DriverManager.getConnection("jdbc:mysql://localhost:3306/"+dbName,user,password);
         } catch (Exception ex) {
-           System.out.print(ex); ;
+        	Main.getAlert("échec de la connection a base de donnée", "erreur");
         }
         return conx;
     }

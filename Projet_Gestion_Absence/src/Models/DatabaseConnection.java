@@ -2,14 +2,42 @@ package Models;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
+
+import application.Main;
+
+import java.sql.Statement;
 
 public class DatabaseConnection implements InterfaceDb {
 
 	@Override
-	public int authentification(String email, String password) {
-		// TODO Auto-generated method stub
-		return 0;
+	public User authentification(String email, String password) {
+		User user = null;
+		try {
+			Database con=new Database();
+			Connection cnx=con.getConnection();
+			String  sql="select * from user where Email='"+email+"' and password='"+password+"'";
+	        Statement statement;
+			statement = cnx.createStatement();
+	        ResultSet res= statement.executeQuery(sql);
+			if(res.next()) {
+				if(res.getString("role").equals("apprenant")) {
+					user = new Apprenant(res.getInt(1), res.getString(2), res.getString(3), res.getInt(6));
+				} else if(res.getString("role").equals("formateur")) {
+					user = new Formateur(res.getInt(1), res.getString(2), res.getString(3));
+				} else if(res.getString("role").equals("secretere")) {
+					user =new Secretaire(res.getInt(7), res.getInt(1), res.getString(2), res.getString(3));
+				} else if(res.getString("role").equals("admin")) {
+					user = new Administrateur(res.getInt(1), res.getString(2), res.getString(3));
+				}
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			Main.getAlert("échec de la connection a base de donnée", "erreur");
+		}
+		return user;
 	}
 
 	@Override

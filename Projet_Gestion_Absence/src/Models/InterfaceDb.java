@@ -3,7 +3,7 @@ package Models;
 import java.util.ArrayList;
 
 public interface InterfaceDb {
-   int authentification(String email, String password);
+   User authentification(String email, String password);
    ArrayList<Departement> getDepartement();
    ArrayList<Promo> getPromotion(int idDepartement);
    int inscription(User user);

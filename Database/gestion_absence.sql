@@ -60,7 +60,8 @@ CREATE TABLE IF NOT EXISTS `user` (
   `Email` varchar(50) NOT NULL Unique,
   `Role` varchar(40) NOT NULL,
   `password` varchar(30) NOT NULL,
-  `id_promo` int(10),
+  `id_promo` int(10) DEFAULT NULL,
+  id_Dep int(10) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb4;
 
@@ -69,9 +70,8 @@ CREATE TABLE IF NOT EXISTS `Promo`(
   `nom_promo` varchar(20) NOT NULL,
   `Date_debut_scolaire` date DEFAULT NULL,
   `Date_Fin_scolaire` date DEFAULT NULL,
-  id_Dep int,
-  id_user_formateur int,
-  id_user_Apprenant int,
+  id_Dep int(10),
+  id_user_formateur int(10),
   PRIMARY KEY (`id_promo`)
 ) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb4;
 
@@ -92,12 +92,14 @@ ALTER TABLE `presence`
   ADD CONSTRAINT `presence_ibfk_1` FOREIGN KEY (`id_Formateur`) REFERENCES `user` (`id`),
   ADD CONSTRAINT `presence_ibfk_2` FOREIGN KEY (`id_apprenant`) REFERENCES `user` (`id`);
 ALTER TABLE `user`
-  ADD CONSTRAINT `Promo_ibfk_2` FOREIGN KEY (`id_promo`) REFERENCES `Promo` (`id_promo`);
+  ADD CONSTRAINT `user_ibfk_1` FOREIGN KEY (`id_promo`) REFERENCES `Promo` (`id_promo`),
+  ADD CONSTRAINT `user_ibfk_2` FOREIGN KEY (`id_Dep`) REFERENCES `Departement` (`id_dep`);
 ALTER TABLE `Promo`
   ADD CONSTRAINT `Promo_ibfk_1` FOREIGN KEY (`id_user_formateur`) REFERENCES `user` (`id`),
-  ADD CONSTRAINT `Constraint_id_dep` FOREIGN KEY (`id_Dep`) REFERENCES `Departement` (`id_dep`);
-COMMIT;
+  ADD CONSTRAINT `Promo_ibfk_2` FOREIGN KEY (`id_Dep`) REFERENCES `Departement` (`id_dep`);
 
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+  
+
+
+INSERT INTO `user` (`nom_complet`, `Email`, `Role`, `password`, `id_promo`) VALUES
+('Youcode Administrate', 'youcode@gmail.com', 'admin', 'aaaaaaaa', NULL);
