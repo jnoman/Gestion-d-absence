@@ -1,16 +1,12 @@
 package Models;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import application.Apprenant;
-import application.DbSkills;
 import application.Main;
-import application.Staff;
 
 import java.sql.Statement;
 
@@ -90,6 +86,7 @@ public class DatabaseConnection implements InterfaceDb {
 
 	@Override
 	public int inscription(User user) {
+		int ret =0;
 		try {
 			Database con=new Database();
 			Connection cnx=con.getConnection();
@@ -113,20 +110,23 @@ public class DatabaseConnection implements InterfaceDb {
 				ps.setNull(5, java.sql.Types.INTEGER);
 				ps.setInt(6, secretaire.getIdDepartement());
 			}
-			ps.executeUpdate();
+			int affectedRows = ps.executeUpdate();
+			if (affectedRows == 0) {
+	            throw new SQLException("La création de l'utilisateur a échoué, aucune ligne n'est affectée.");
+	        }
 			try (ResultSet generatedKeys = ps.getGeneratedKeys()) {
 	            if (generatedKeys.next()) {
-	                user.setId(generatedKeys.getInt(1));
+	            	ret = generatedKeys.getInt(1);
 	            }
 	            else {
-	                throw new SQLException("Creating user failed, no ID obtained.");
+	                throw new SQLException("La création de l'utilisateur a échoué, aucun ID obtenu.");
 	            }
 	        }
 			cnx.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		return user.getId();
+		return ret;
 	}
 
 	@Override
