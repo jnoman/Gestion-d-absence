@@ -4,8 +4,8 @@ import java.sql.Date;
 
 public class Promo {
 	private int id;
-	private String idDepartement;
-	private int nomPromotion;
+	private int idDepartement;
+	private String nomPromotion;
 	private int idFormateur;
 	private Date dateDebutAnneeScolaire;
 	private Date dateFinAnneeScolaire;
@@ -16,16 +16,16 @@ public class Promo {
 	public void setId(int id) {
 		this.id = id;
 	}
-	public String getIdDepartement() {
+	public int getIdDepartement() {
 		return idDepartement;
 	}
-	public void setIdDepartement(String idDepartement) {
+	public void setIdDepartement(int idDepartement) {
 		this.idDepartement = idDepartement;
 	}
-	public int getNomPromotion() {
+	public String getNomPromotion() {
 		return nomPromotion;
 	}
-	public void setNomPromotion(int nomPromotion) {
+	public void setNomPromotion(String nomPromotion) {
 		this.nomPromotion = nomPromotion;
 	}
 	public int getIdFormateur() {
@@ -48,7 +48,7 @@ public class Promo {
 	}
 	
 	
-	public Promo(int id, String idDepartement, int nomPromotion, int idFormateur, Date dateDebutAnneeScolaire, Date dateFinAnneeScolaire) {
+	public Promo(int id, int idDepartement, String nomPromotion, int idFormateur, Date dateDebutAnneeScolaire, Date dateFinAnneeScolaire) {
 		this.id = id;
 		this.idDepartement = idDepartement;
 		this.nomPromotion = nomPromotion;
@@ -56,7 +56,7 @@ public class Promo {
 		this.dateDebutAnneeScolaire = dateDebutAnneeScolaire;
 		this.dateFinAnneeScolaire = dateFinAnneeScolaire;
 	}
-	public Promo(String idDepartement, int nomPromotion, int idFormateur, Date dateDebutAnneeScolaire, Date dateFinAnneeScolaire) {
+	public Promo(int idDepartement, String nomPromotion, int idFormateur, Date dateDebutAnneeScolaire, Date dateFinAnneeScolaire) {
 		this.idDepartement = idDepartement;
 		this.nomPromotion = nomPromotion;
 		this.idFormateur = idFormateur;

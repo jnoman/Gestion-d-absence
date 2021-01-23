@@ -5,7 +5,8 @@ import java.util.ArrayList;
 public interface InterfaceDb {
    User authentification(String email, String password);
    ArrayList<Departement> getDepartement();
-   ArrayList<Promo> getPromotion(int idDepartement);
+   ArrayList<Promo> getPromotionsByDepartement(int idDepartement);
+   ArrayList<Promo> getPromotionsByForrmateur(int idFormateur);
    int inscription(User user);
    int cratePromo(Promo promo);
    ArrayList<Apprenant> getApprenant(int idPromo);
