@@ -91,7 +91,7 @@ public class DatabaseConnection implements InterfaceDb {
 			Database con=new Database();
 			Connection cnx=con.getConnection();
 			String sql ="INSERT INTO `user`(`nom_complet`, `Email`, `Role`, `password`, `id_promo`, `id_Dep`) VALUES (?,?,?,?,?,?)";
-			PreparedStatement ps=cnx.prepareStatement(sql);
+			PreparedStatement ps=cnx.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 			ps.setString(1, user.getNomComplet());
 			ps.setString(2, user.getEmail());
 			ps.setString(4, user.getPassword());
@@ -116,7 +116,7 @@ public class DatabaseConnection implements InterfaceDb {
 	        }
 			try (ResultSet generatedKeys = ps.getGeneratedKeys()) {
 	            if (generatedKeys.next()) {
-	            	ret = generatedKeys.getInt(1);
+	            	ret = (int)generatedKeys.getLong(1);
 	            }
 	            else {
 	                throw new SQLException("La création de l'utilisateur a échoué, aucun ID obtenu.");
