@@ -1,29 +1,23 @@
-package Dao;
+package Models;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
-import Models.Administrateur;
-import Models.Apprenant;
-import Models.Database;
-import Models.Departement;
-import Models.Formateur;
-import Models.Presence;
-import Models.Promo;
-import Models.Secretaire;
-import Models.User;
 import application.Main;
 
 import java.sql.Statement;
 
 public class DatabaseConnection implements InterfaceDb {
-
+	int id;
+	int affectedRows;
 	@Override
 	public User authentification(String email, String password) {
 		User user = null;
+		
 		try {
 			Database con=new Database();
 			Connection cnx=con.getConnection();
@@ -44,7 +38,7 @@ public class DatabaseConnection implements InterfaceDb {
 			cnx.close();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			Main.getAlert("échec de la connection a base de donnée", "erreur");
+			Main.getAlert("ï¿½chec de la connection a base de donnï¿½e", "erreur");
 		}
 		return user;
 	}
@@ -100,11 +94,11 @@ public class DatabaseConnection implements InterfaceDb {
 			Database con=new Database();
 			Connection cnx=con.getConnection();
 			String sql ="INSERT INTO `user`(`nom_complet`, `Email`, `Role`, `password`, `id_promo`, `id_Dep`) VALUES (?,?,?,?,?,?)";
-			PreparedStatement ps=cnx.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+			PreparedStatement ps=cnx.prepareStatement(sql);
 			ps.setString(1, user.getNomComplet());
 			ps.setString(2, user.getEmail());
 			ps.setString(4, user.getPassword());
-			if (user.getClass() == Apprenant.class) {
+			if(user.getClass() == Apprenant.class) {
 				Apprenant apprenat = (Apprenant) user;
 				ps.setString(3, "apprenant");
 				ps.setInt(5, apprenat.getIdPromotion());
@@ -121,14 +115,14 @@ public class DatabaseConnection implements InterfaceDb {
 			}
 			int affectedRows = ps.executeUpdate();
 			if (affectedRows == 0) {
-	            throw new SQLException("La création de l'utilisateur a échoué, aucune ligne n'est affectée.");
+	            throw new SQLException("La crï¿½ation de l'utilisateur a ï¿½chouï¿½, aucune ligne n'est affectï¿½e.");
 	        }
 			try (ResultSet generatedKeys = ps.getGeneratedKeys()) {
 	            if (generatedKeys.next()) {
-	            	ret = (int)generatedKeys.getLong(1);
+	            	ret = generatedKeys.getInt(1);
 	            }
 	            else {
-	                throw new SQLException("La création de l'utilisateur a échoué, aucun ID obtenu.");
+	                throw new SQLException("La crï¿½ation de l'utilisateur a ï¿½chouï¿½, aucun ID obtenu.");
 	            }
 	        }
 			cnx.close();
@@ -160,33 +154,75 @@ public class DatabaseConnection implements InterfaceDb {
 	}
 
 	@Override
-	public ArrayList<Apprenant> getApprenant(int idPromo) {
-		ArrayList<Apprenant> apprenants = new ArrayList<Apprenant>();
+	public List<Apprenant> getApprenant(int idPromo) {
+		// TODO Auto-generated method stub
+		List<Apprenant> user = new ArrayList<Apprenant>();
 		try {
 			Database con=new Database();
 			Connection cnx=con.getConnection();
-			String  sql="SELECT * FROM `user` WHERE Role='apprenant' and id_promo="+idPromo;
+			String  sql="select * from user where Role='Apprenant' and id_promo='"+idPromo+"'";
 	        Statement statement = cnx.createStatement();
 	        ResultSet res= statement.executeQuery(sql);
-	        while (res.next()) {
-	        	apprenants.add(new Apprenant(res.getInt(1), res.getString(2), res.getString(3), idPromo));
+			if(res.next()) {
+					user.add(new Apprenant(res.getInt(1), res.getString(2), res.getString(3), res.getInt(6)));
 			}
-		} catch (SQLException e) {
+			cnx.close();
+		}catch (SQLException e){
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			Main.getAlert("ï¿½chec de la connection a base de donnï¿½e", "erreur");
 		}
-		return apprenants;
+		return user;
 	}
 
 	@Override
 	public int addAbsence(Presence presence) {
 		// TODO Auto-generated method stub
-		return 0;
+		try {
+			Database con=new Database();
+			Connection cnx=con.getConnection();
+			String sql ="INSERT INTO `presence`(`id_apprenant`,`id_Formateur`,`absence`,`Date_absence`,`Duree`) VALUES (?,?,?,?,?)";
+			PreparedStatement ps= cnx.prepareStatement(sql);
+			ps.setInt(1,presence.getIdApprenat());
+			ps.setInt(2,presence.getIdFormateur());
+			ps.setBoolean(3,presence.getAbsence());
+			ps.setString(4,presence.getDateAbsence());
+			ps.setFloat(5,presence.getDureAbsence());
+			int affectedRows = ps.executeUpdate();
+			if (affectedRows == 0){
+	            throw new SQLException("La crï¿½ation de la presence a echouer");
+	        }
+			cnx.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return affectedRows;
+	}
+	
+	public int getApprenant(String name) {
+		
+		try {
+			Database con=new Database();
+			Connection cnx=con.getConnection();
+			String  sql = "select id from user where nom_complet = '" + name +"'";
+	        Statement statement = cnx.createStatement();
+	        ResultSet res= statement.executeQuery(sql);
+			if(res.next()) {
+					id = res.getInt(1);
+			}
+			cnx.close();
+		}catch(SQLException e){
+			// TODO Auto-generated catch block.
+			Main.getAlert("ï¿½chec de la connection a base de donnï¿½e","erreur");
+		}
+		return id;
 	}
 
 	@Override
 	public ArrayList<Presence> getListAbsence(int idApprenant) {
 		// TODO Auto-generated method stub
+		
+		
 		return null;
 	}
 

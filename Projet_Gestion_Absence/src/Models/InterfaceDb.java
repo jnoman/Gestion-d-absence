@@ -1,12 +1,7 @@
-package Dao;
+package Models;
 
 import java.util.ArrayList;
-
-import Models.Apprenant;
-import Models.Departement;
-import Models.Presence;
-import Models.Promo;
-import Models.User;
+import java.util.List;
 
 public interface InterfaceDb {
    User authentification(String email, String password);
@@ -15,7 +10,7 @@ public interface InterfaceDb {
    ArrayList<Promo> getPromotionsByForrmateur(int idFormateur);
    int inscription(User user);
    int cratePromo(Promo promo);
-   ArrayList<Apprenant> getApprenant(int idPromo);
+   List<Apprenant> getApprenant(int idPromo);
    int addAbsence(Presence presence);
    ArrayList<Presence> getListAbsence(int idApprenant);
    int justifierAbsence(int idPresence);

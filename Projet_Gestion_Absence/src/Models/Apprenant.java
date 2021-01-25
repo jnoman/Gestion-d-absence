@@ -17,9 +17,10 @@ public class Apprenant extends User {
 		this.idPromotion = idPromotion;
 	}
 	
-	public Apprenant(String nomComplet, String email, String password, int idPromotion) {
+	public Apprenant(String nomComplet, String email, String password,Date dateDebutAnneeScolaire, int idPromotion) {
 		super(nomComplet, email, password);
 		this.idPromotion = idPromotion;
 	}
+	
 
 }

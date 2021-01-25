@@ -8,8 +8,6 @@ package Controller;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
-
-import Dao.DatabaseConnection;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -18,13 +16,16 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 import Models.Administrateur;
 import Models.Apprenant;
+import Models.DatabaseConnection;
 import Models.Formateur;
 import Models.Secretaire;
+import Models.User;
 import application.Main;
 
 /**
