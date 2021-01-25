@@ -1,11 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.Group?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.layout.Pane?>
 
-
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.171" fx:controller="Controller.PageFormateurController">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.Gestion_Formateur">
    <children>
-      <Label layoutX="226.0" layoutY="55.0" text="page formateur" />
+      <ComboBox fx:id="comboBox" layoutX="236.0" layoutY="61.0" prefHeight="28.0" prefWidth="189.0" />
+      <TextField fx:id="txt_Field" layoutX="216.0" layoutY="175.0" />
+      <Label layoutX="162.0" layoutY="66.0" prefHeight="18.0" prefWidth="35.0" text="Nom" />
+      <Label layoutX="261.0" layoutY="14.0" text="Formateur" />
+      <Group layoutX="152.0" layoutY="119.0">
+         <children>
+            <RadioButton fx:id="rdb1" mnemonicParsing="false" onAction="#isSelected" selected="true" text="Absence">
+               <toggleGroup>
+                  <ToggleGroup fx:id="groupe" />
+               </toggleGroup></RadioButton>
+            <RadioButton fx:id="rdb2" layoutX="171.0" mnemonicParsing="false" onMouseClicked="#isSelected" text="Retard" toggleGroup="$groupe" />
+         </children>
+      </Group>
+      <Button layoutX="248.0" layoutY="253.0" mnemonicParsing="false" onAction="#Traitement" prefHeight="46.0" prefWidth="87.0" text="Button" />
+      <DatePicker fx:id="datepicker" layoutX="210.0" layoutY="175.0" />
    </children>
-</AnchorPane>
+</Pane>
