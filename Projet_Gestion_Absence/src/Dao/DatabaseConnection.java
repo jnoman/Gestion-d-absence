@@ -161,8 +161,21 @@ public class DatabaseConnection implements InterfaceDb {
 
 	@Override
 	public ArrayList<Apprenant> getApprenant(int idPromo) {
-		// TODO Auto-generated method stub
-		return null;
+		ArrayList<Apprenant> apprenants = new ArrayList<Apprenant>();
+		try {
+			Database con=new Database();
+			Connection cnx=con.getConnection();
+			String  sql="SELECT * FROM `user` WHERE Role='apprenant' and id_promo="+idPromo;
+	        Statement statement = cnx.createStatement();
+	        ResultSet res= statement.executeQuery(sql);
+	        while (res.next()) {
+	        	apprenants.add(new Apprenant(res.getInt(1), res.getString(2), res.getString(3), idPromo));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return apprenants;
 	}
 
 	@Override
