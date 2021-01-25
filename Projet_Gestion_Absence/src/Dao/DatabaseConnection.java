@@ -1,4 +1,4 @@
-package Models;
+package Dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -6,6 +6,15 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import Models.Administrateur;
+import Models.Apprenant;
+import Models.Database;
+import Models.Departement;
+import Models.Formateur;
+import Models.Presence;
+import Models.Promo;
+import Models.Secretaire;
+import Models.User;
 import application.Main;
 
 import java.sql.Statement;

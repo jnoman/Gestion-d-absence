@@ -12,8 +12,8 @@ import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.commons.mail.DefaultAuthenticator;
 import org.apache.commons.mail.HtmlEmail;
 
+import Dao.DatabaseConnection;
 import Models.Apprenant;
-import Models.DatabaseConnection;
 import Models.Departement;
 import Models.Formateur;
 import Models.Promo;
@@ -120,10 +120,6 @@ public class PageAdminController implements Initializable {
 		return matcher.find();
 	}
 
-	public static boolean validate_date_promo() {
-		return true;
-	}
-
 	private static boolean netIsAvailable() {
 		try {
 			final URL url = new URL("http://www.google.com");
@@ -145,7 +141,7 @@ public class PageAdminController implements Initializable {
 				&& ((combo_role.getSelectionModel().getSelectedItem() == "apprenant"
 						&& !combo_promo.getSelectionModel().isEmpty())
 						|| (combo_role.getSelectionModel().getSelectedItem() == "formateur"
-								&& !txt_promo.getText().equals("") && validate_date_promo())
+								&& !txt_promo.getText().equals(""))
 						|| (combo_role.getSelectionModel().getSelectedItem() == "secrétaire"))) {
 			if (validate_email(txt_email.getText())) {
 				if (netIsAvailable()) {

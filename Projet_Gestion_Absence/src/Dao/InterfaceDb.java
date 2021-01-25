@@ -1,6 +1,12 @@
-package Models;
+package Dao;
 
 import java.util.ArrayList;
+
+import Models.Apprenant;
+import Models.Departement;
+import Models.Presence;
+import Models.Promo;
+import Models.User;
 
 public interface InterfaceDb {
    User authentification(String email, String password);
