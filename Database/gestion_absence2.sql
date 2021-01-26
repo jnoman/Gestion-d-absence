@@ -1,13 +1,14 @@
 -- phpMyAdmin SQL Dump
--- version 5.0.2
+-- version 4.9.2
 -- https://www.phpmyadmin.net/
 --
--- Hôte : 127.0.0.1
--- Généré le : mar. 26 jan. 2021 à 12:32
--- Version du serveur :  10.4.13-MariaDB
--- Version de PHP : 7.4.8
+-- Host: 127.0.0.1:3306
+-- Generation Time: Jan 26, 2021 at 03:52 PM
+-- Server version: 10.4.10-MariaDB
+-- PHP Version: 7.3.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -18,28 +19,24 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de données : `gestion_absence`
+-- Database: `gestion_absence`
 --
-
-drop schema if exists gestion_absence;
-
-create schema gestion_absence;
-
-use gestion_absence;
 
 -- --------------------------------------------------------
 
 --
--- Structure de la table `departement`
+-- Table structure for table `departement`
 --
 
-CREATE TABLE `departement` (
-  `id_dep` int(10) NOT NULL,
-  `nom_dep` varchar(20) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+DROP TABLE IF EXISTS `departement`;
+CREATE TABLE IF NOT EXISTS `departement` (
+  `id_dep` int(10) NOT NULL AUTO_INCREMENT,
+  `nom_dep` varchar(20) NOT NULL,
+  PRIMARY KEY (`id_dep`)
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8mb4;
 
 --
--- Déchargement des données de la table `departement`
+-- Dumping data for table `departement`
 --
 
 INSERT INTO `departement` (`id_dep`, `nom_dep`) VALUES
@@ -49,49 +46,52 @@ INSERT INTO `departement` (`id_dep`, `nom_dep`) VALUES
 -- --------------------------------------------------------
 
 --
--- Structure de la table `presence`
+-- Table structure for table `presence`
 --
 
-CREATE TABLE `presence` (
-  `id` int(10) NOT NULL,
+DROP TABLE IF EXISTS `presence`;
+CREATE TABLE IF NOT EXISTS `presence` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
   `id_apprenant` int(11) NOT NULL,
   `id_Formateur` int(11) NOT NULL,
   `absence` tinyint(1) DEFAULT NULL,
-  `Date_absence` Date NOT NULL,
+  `Date_absence` date NOT NULL,
   `Duree` int(11) DEFAULT NULL,
-  `justifier` tinyint(4) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  `justifier` tinyint(4) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `id_Formateur` (`id_Formateur`),
+  KEY `id_apprenant` (`id_apprenant`)
+) ENGINE=InnoDB AUTO_INCREMENT=46 DEFAULT CHARSET=utf8mb4;
 
 --
--- Déchargement des données de la table `presence`
+-- Dumping data for table `presence`
 --
 
 INSERT INTO `presence` (`id`, `id_apprenant`, `id_Formateur`, `absence`, `Date_absence`, `Duree`, `justifier`) VALUES
-(27, 25, 21, 1, '2021-01-29', 7, NULL),
-(28, 25, 21, 1, '25/01/2021', 420, NULL),
-(29, 25, 21, 1, '25/01/2021', 420, NULL),
-(36, 20, 21, 1, '2020-12-31', 420, NULL),
-(37, 20, 21, 1, '2021-01-01', 420, NULL),
-(38, 20, 21, 1, '25/01/2021', 420, NULL),
-(39, 25, 24, 1, '26/01/2021', 180, NULL);
+(44, 25, 24, 0, '2021-01-26', 0, NULL),
+(45, 25, 24, 1, '2021-01-26', 420, NULL);
 
 -- --------------------------------------------------------
 
 --
--- Structure de la table `promo`
+-- Table structure for table `promo`
 --
 
-CREATE TABLE `promo` (
-  `id_promo` int(10) NOT NULL,
+DROP TABLE IF EXISTS `promo`;
+CREATE TABLE IF NOT EXISTS `promo` (
+  `id_promo` int(10) NOT NULL AUTO_INCREMENT,
   `nom_promo` varchar(20) NOT NULL,
   `Date_debut_scolaire` date DEFAULT NULL,
   `Date_Fin_scolaire` date DEFAULT NULL,
   `id_Dep` int(10) DEFAULT NULL,
-  `id_user_formateur` int(10) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  `id_user_formateur` int(10) DEFAULT NULL,
+  PRIMARY KEY (`id_promo`),
+  KEY `Promo_ibfk_1` (`id_user_formateur`),
+  KEY `Promo_ibfk_2` (`id_Dep`)
+) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8mb4;
 
 --
--- Déchargement des données de la table `promo`
+-- Dumping data for table `promo`
 --
 
 INSERT INTO `promo` (`id_promo`, `nom_promo`, `Date_debut_scolaire`, `Date_Fin_scolaire`, `id_Dep`, `id_user_formateur`) VALUES
@@ -101,21 +101,26 @@ INSERT INTO `promo` (`id_promo`, `nom_promo`, `Date_debut_scolaire`, `Date_Fin_s
 -- --------------------------------------------------------
 
 --
--- Structure de la table `user`
+-- Table structure for table `user`
 --
 
-CREATE TABLE `user` (
-  `id` int(10) NOT NULL,
+DROP TABLE IF EXISTS `user`;
+CREATE TABLE IF NOT EXISTS `user` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
   `nom_complet` varchar(20) NOT NULL,
   `Email` varchar(50) NOT NULL,
   `Role` varchar(40) NOT NULL,
   `password` varchar(30) NOT NULL,
   `id_promo` int(10) DEFAULT NULL,
-  `id_Dep` int(10) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  `id_Dep` int(10) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `Email` (`Email`),
+  KEY `user_ibfk_1` (`id_promo`),
+  KEY `user_ibfk_2` (`id_Dep`)
+) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8mb4;
 
 --
--- Déchargement des données de la table `user`
+-- Dumping data for table `user`
 --
 
 INSERT INTO `user` (`id`, `nom_complet`, `Email`, `Role`, `password`, `id_promo`, `id_Dep`) VALUES
@@ -128,88 +133,25 @@ INSERT INTO `user` (`id`, `nom_complet`, `Email`, `Role`, `password`, `id_promo`
 (26, 'zakaria kamili', 'zkamili@gmail.com', 'apprenant', 'G9@6tc?1HTy6', 20, NULL);
 
 --
--- Index pour les tables déchargées
+-- Constraints for dumped tables
 --
 
 --
--- Index pour la table `departement`
---
-ALTER TABLE `departement`
-  ADD PRIMARY KEY (`id_dep`);
-
---
--- Index pour la table `presence`
---
-ALTER TABLE `presence`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `id_Formateur` (`id_Formateur`),
-  ADD KEY `id_apprenant` (`id_apprenant`);
-
---
--- Index pour la table `promo`
---
-ALTER TABLE `promo`
-  ADD PRIMARY KEY (`id_promo`),
-  ADD KEY `Promo_ibfk_1` (`id_user_formateur`),
-  ADD KEY `Promo_ibfk_2` (`id_Dep`);
-
---
--- Index pour la table `user`
---
-ALTER TABLE `user`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `Email` (`Email`),
-  ADD KEY `user_ibfk_1` (`id_promo`),
-  ADD KEY `user_ibfk_2` (`id_Dep`);
-
---
--- AUTO_INCREMENT pour les tables déchargées
---
-
---
--- AUTO_INCREMENT pour la table `departement`
---
-ALTER TABLE `departement`
-  MODIFY `id_dep` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
-
---
--- AUTO_INCREMENT pour la table `presence`
---
-ALTER TABLE `presence`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
-
---
--- AUTO_INCREMENT pour la table `promo`
---
-ALTER TABLE `promo`
-  MODIFY `id_promo` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
-
---
--- AUTO_INCREMENT pour la table `user`
---
-ALTER TABLE `user`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
-
---
--- Contraintes pour les tables déchargées
---
-
---
--- Contraintes pour la table `presence`
+-- Constraints for table `presence`
 --
 ALTER TABLE `presence`
   ADD CONSTRAINT `presence_ibfk_1` FOREIGN KEY (`id_Formateur`) REFERENCES `user` (`id`),
   ADD CONSTRAINT `presence_ibfk_2` FOREIGN KEY (`id_apprenant`) REFERENCES `user` (`id`);
 
 --
--- Contraintes pour la table `promo`
+-- Constraints for table `promo`
 --
 ALTER TABLE `promo`
   ADD CONSTRAINT `Promo_ibfk_1` FOREIGN KEY (`id_user_formateur`) REFERENCES `user` (`id`),
   ADD CONSTRAINT `Promo_ibfk_2` FOREIGN KEY (`id_Dep`) REFERENCES `departement` (`id_dep`);
 
 --
--- Contraintes pour la table `user`
+-- Constraints for table `user`
 --
 ALTER TABLE `user`
   ADD CONSTRAINT `user_ibfk_1` FOREIGN KEY (`id_promo`) REFERENCES `promo` (`id_promo`),
