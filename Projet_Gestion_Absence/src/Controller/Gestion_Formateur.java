@@ -2,16 +2,12 @@ package Controller;
 
 import java.io.IOException;
 import java.net.URL;
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 import java.util.ResourceBundle;
 
 
 import Models.Apprenant;
-import Models.Departement;
 import Models.Formateur;
 import Dao.DatabaseConnection;
 import Models.Presence;
@@ -26,10 +22,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.stage.Stage;
@@ -87,29 +80,29 @@ public class Gestion_Formateur implements Initializable {
 		
 	}
 	
-	public void Traitement() {
-		SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");  
- 	    Date date = new Date();
+	public void Traitement() {  
+ 	    java.sql.Date date = new java.sql.Date(System.currentTimeMillis());
+ 	    System.out.println(date);
  	    int id_test = 0;
  	    try {
-	    if(!comboBox.getSelectionModel().getSelectedItem().toString().equals("") ){
+	    if(!comboBox.getSelectionModel().getSelectedItem().toString().equals("")){
 	    	if(rdb.isSelected() ){
-				Presence Pre = new Presence(comboBox.getSelectionModel().getSelectedItem().getId(),formateur.getId(),false,formatter.format(date).toString(),0);
+	    		System.out.println(date);
+				Presence Pre = new Presence(comboBox.getSelectionModel().getSelectedItem().getId(),formateur.getId(),false,date,0);
 				id_test = db.addAbsence(Pre);
 			} else if(rdb1.isSelected() ){
-				Presence Pre = new Presence(comboBox.getSelectionModel().getSelectedItem().getId(),formateur.getId(),true,formatter.format(date).toString(),420);
+				Presence Pre = new Presence(comboBox.getSelectionModel().getSelectedItem().getId(),formateur.getId(),true,date,420);
 				id_test = db.addAbsence(Pre);
 			}else if(rdb2.isSelected()) {
 			    	  if(!txt_Field.getText().toString().equals("")){
-			    	min	 = 	 Float.parseFloat(txt_Field.getText().toString());
-			     
-					Presence Pre = new Presence(comboBox.getSelectionModel().getSelectedItem().getId(),formateur.getId(),true,formatter.format(date).toString(),min);	
+			    	min	 = 	 Float.parseFloat(txt_Field.getText().toString());		     
+					Presence Pre = new Presence(comboBox.getSelectionModel().getSelectedItem().getId(),formateur.getId(),true,date,min);	
 					id_test = db.addAbsence(Pre);
 			    		  
 			    	  }
 			} else if(rdb3.isSelected()) {
 			     
-					Presence Pre = new Presence(comboBox.getSelectionModel().getSelectedItem().getId(),formateur.getId(),true,formatter.format(date).toString(),180);	
+					Presence Pre = new Presence(comboBox.getSelectionModel().getSelectedItem().getId(),formateur.getId(),true,date,180);	
 					id_test = db.addAbsence(Pre);
 			}
 			if(id_test==1) {
@@ -128,6 +121,12 @@ public class Gestion_Formateur implements Initializable {
 		
 	}
 	
+	public void test() {
+		SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");  
+ 	    Date date = new Date();
+	//System.out.println(date);
+		
+	}
 	@FXML
 	private void deconnexion(ActionEvent event) throws IOException {
 		Parent PageApprenant = FXMLLoader.load(getClass().getResource("../View/pageLogin.fxml"));

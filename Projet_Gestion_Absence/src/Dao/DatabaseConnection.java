@@ -202,7 +202,7 @@ public class DatabaseConnection implements InterfaceDb {
 			ps.setInt(1, presence.getIdApprenat());
 			ps.setInt(2, presence.getIdFormateur());
 			ps.setBoolean(3, presence.getAbsence());
-			ps.setString(4, presence.getDateAbsence());
+			ps.setDate(4, presence.getDateAbsence());
 			ps.setFloat(5, presence.getDureAbsence());
 			affectedRows = ps.executeUpdate();
 			if (affectedRows == 0) {
@@ -226,7 +226,7 @@ public class DatabaseConnection implements InterfaceDb {
 			Statement statement = cnx.createStatement();
 			ResultSet res = statement.executeQuery(sql);
 			while (res.next()) {
-				presences.add(new Presence(res.getInt(1), idApprenant, res.getInt(3), res.getBoolean(4), res.getString(5), res.getFloat(6), res.getBoolean(7)));
+				presences.add(new Presence(res.getInt(1), idApprenant, res.getInt(3), res.getBoolean(4), res.getDate(5), res.getFloat(6), res.getBoolean(7)));
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
