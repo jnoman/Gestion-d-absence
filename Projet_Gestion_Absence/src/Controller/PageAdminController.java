@@ -47,7 +47,7 @@ public class PageAdminController implements Initializable {
 	@FXML
 	private Label nom_user, label_promo, label_date_debut, label_date_fin;
 	@FXML
-	private Button btnAjouter, btndonnexion;
+	private Button btnAjouter, btndeconnexion;
 	@FXML
 	private ComboBox<String> combo_role;
 	@FXML

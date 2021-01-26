@@ -42,7 +42,7 @@
             <Font name="Arial Black" size="16.0" />
          </font>
       </Button>
-      <Button fx:id="btndonnexion" layoutX="376.0" layoutY="424.0" mnemonicParsing="false" onAction="#deconnexion" prefHeight="25.0" prefWidth="141.0" style="-fx-background-color: #9f9898;" text="déconnexion">
+      <Button fx:id="btndeconnexion" layoutX="376.0" layoutY="424.0" mnemonicParsing="false" onAction="#deconnexion" prefHeight="25.0" prefWidth="141.0" style="-fx-background-color: #9f9898;" text="déconnexion">
          <font>
             <Font name="Arial Black" size="16.0" />
          </font>

@@ -8,8 +8,10 @@ public class Presence {
    private Boolean absence;
    private String dateAbsence;
    private float dureAbsence;
+   private Boolean justifier;
    
-    public int getId() {
+    
+	public int getId() {
 		return id;
 	}
 	public void setId(int id) {
@@ -45,8 +47,14 @@ public class Presence {
 	public void setDureAbsence(float dureAbsence) {
 		this.dureAbsence = dureAbsence;
 	}
+	public Boolean getJustifier() {
+		return justifier;
+	}
+	public void setJustifier(Boolean justifier) {
+		this.justifier = justifier;
+	}
 	
-	public Presence(int id, int idApprenat, int idFormateur, Boolean absence, String dateAbsence, float dureAbsence) {
+	public Presence(int id, int idApprenat, int idFormateur, Boolean absence, String dateAbsence, float dureAbsence, Boolean justifier) {
 		super();
 		this.id = id;
 		this.idApprenat = idApprenat;
@@ -54,6 +62,7 @@ public class Presence {
 		this.absence = absence;
 		this.dateAbsence = dateAbsence;
 		this.dureAbsence = dureAbsence;
+		this.justifier = justifier;
 	}
 	
 	public Presence(int idApprenat, int idFormateur, Boolean absence, String dateAbsence, float dureAbsence){

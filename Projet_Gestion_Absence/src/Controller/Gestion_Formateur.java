@@ -1,5 +1,6 @@
 package Controller;
 
+import java.io.IOException;
 import java.net.URL;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -18,32 +19,40 @@ import Models.Promo;
 import application.Main;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
+import javafx.stage.Stage;
 import javafx.util.StringConverter;
 
 public class Gestion_Formateur implements Initializable {
 	
- 	 
+	@FXML	Label nom_user;
 	@FXML   ComboBox<Apprenant> comboBox;
     @FXML   javafx.scene.control.TextField txt_Field; 
-    @FXML   DatePicker datepicker;
-    @FXML RadioButton rdb1;
-    float min,houre;
+    @FXML RadioButton rdb1, rdb3;
+    float min;
     @FXML RadioButton rdb2;
 	DatabaseConnection db;
 	Promo promo;
 	Formateur formateur;
 	@Override
 	public void initialize(URL url,ResourceBundle rb) {
+		nom_user.setText("bonjour " + Main.logged.getNomComplet());
+		
 	    db = new DatabaseConnection();
 		formateur = (Formateur)Main.logged;
 		promo = db.getPromotionsByForrmateur(formateur.getId());
-		datepicker.setVisible(true);
 		txt_Field.setVisible(false);
 	    ObservableList<Apprenant> list = FXCollections.observableArrayList();
 		list.addAll(db.getApprenant(promo.getId()));
@@ -66,56 +75,44 @@ public class Gestion_Formateur implements Initializable {
 	}
 	
 	public void isSelected() {
-		
-		System.out.println("hello");
-		System.out.println(rdb1.isSelected());
-		if(rdb1.isSelected()) {
-			datepicker.setVisible(true);
-			txt_Field.setVisible(false);
-		}else if(rdb2.isSelected()){
-			datepicker.setVisible(false);
+		if(rdb2.isSelected()){
 			txt_Field.setVisible(true);
+		}
+		else {
+			txt_Field.setVisible(false);
 		}
 		
 	}
 	
 	public void Traitement() {
-		int id_test;
 		SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");  
  	    Date date = new Date();
+ 	    int id_test = 0;
  	    try {
 	    if(!comboBox.getSelectionModel().getSelectedItem().toString().equals("") ){
 			if(rdb1.isSelected() ){
-				if(datepicker.getValue().toString().equals("")) {
-					Main.getAlert("champs vide", "Erreur");
-				}else {
-				    Presence Pre = new Presence(comboBox.getSelectionModel().getSelectedItem().getId(),formateur.getId(),true,datepicker.getValue().toString(),420);
-				    id_test = db.addAbsence(Pre);
-				    Main.getAlert("Ajoute bien effectuer", "Success");
-					 
-				}
+				Presence Pre = new Presence(comboBox.getSelectionModel().getSelectedItem().getId(),formateur.getId(),true,formatter.format(date).toString(),420);
+				id_test = db.addAbsence(Pre);
 			}else {
 			      if(rdb2.isSelected()) {
-			    if(!txt_Field.getText().toString().equals("")){
-			    min	 = 	 Float.parseFloat(txt_Field.getText().toString());
-			    houre = min/60;
-			   
-				      if(houre == 7.0 || houre == 3.0) { 
-				    	 // System.out.println(formatter.format(date).toString());  
-						 Presence Pre = new Presence(comboBox.getSelectionModel().getSelectedItem().getId(),formateur.getId(),true,formatter.format(date).toString(),min);	
-						 id_test = db.addAbsence(Pre);
-						 Main.getAlert("Ajoute bien effectuer", "Success");
-				    	}else {
-						    Presence Pre = new Presence(comboBox.getSelectionModel().getSelectedItem().getId(),formateur.getId(),false,formatter.format(date).toString(),min);	
-						    id_test = db.addAbsence(Pre);
-						    Main.getAlert("Ajoute bien effectuer", "Success");
-				    		
-				    	}
+			    	  if(!txt_Field.getText().toString().equals("")){
+			    	min	 = 	 Float.parseFloat(txt_Field.getText().toString());
+			     
+					Presence Pre = new Presence(comboBox.getSelectionModel().getSelectedItem().getId(),formateur.getId(),true,formatter.format(date).toString(),min);	
+					id_test = db.addAbsence(Pre);
 			    		  
 			    	  }
 			    }
+			      if(rdb3.isSelected()) {
+			     
+					Presence Pre = new Presence(comboBox.getSelectionModel().getSelectedItem().getId(),formateur.getId(),true,formatter.format(date).toString(),180);	
+					id_test = db.addAbsence(Pre);
+			    }
 			}
+			if(id_test==1) {
 
+			    Main.getAlert("Ajoute bien effectuer", "Success");
+			}
 	    }	
  	    }catch(Exception e) {
  	    	
@@ -128,6 +125,13 @@ public class Gestion_Formateur implements Initializable {
 		
 	}
 	
-	
+	@FXML
+	private void deconnexion(ActionEvent event) throws IOException {
+		Parent PageApprenant = FXMLLoader.load(getClass().getResource("../View/pageLogin.fxml"));
+		Scene s = new Scene(PageApprenant);
+		Stage page = (Stage) ((Node) event.getSource()).getScene().getWindow();
+		page.setScene(s);
+		page.show();
+	}
    
 }
