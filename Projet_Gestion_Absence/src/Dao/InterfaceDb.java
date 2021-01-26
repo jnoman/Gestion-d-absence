@@ -19,5 +19,5 @@ public interface InterfaceDb {
    int addAbsence(Presence presence);
    ArrayList<Presence> getListAbsence(int idApprenant);
    int justifierAbsence(int idPresence, boolean justifier);
-   ArrayList<Presence> getFichePresence(int idApprenant);
+   ArrayList<Presence> getFichePresence(int idApprenant, int month);
 }

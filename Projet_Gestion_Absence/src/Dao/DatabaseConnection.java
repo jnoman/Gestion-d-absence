@@ -255,9 +255,22 @@ public class DatabaseConnection implements InterfaceDb {
 	}
 
 	@Override
-	public ArrayList<Presence> getFichePresence(int idApprenant) {
-		// TODO Auto-generated method stub
-		return null;
+	public ArrayList<Presence> getFichePresence(int idApprenant, int month) {
+		ArrayList<Presence> presences = new ArrayList<Presence>();
+		try {
+			Database con = new Database();
+			Connection cnx = con.getConnection();
+			String sql = "SELECT * FROM presence WHERE Month(Date_absence) ="+month+"  and id_apprenant=" + idApprenant;
+			Statement statement = cnx.createStatement();
+			ResultSet res = statement.executeQuery(sql);
+			while (res.next()) {
+				presences.add(new Presence(res.getInt(1), idApprenant, res.getInt(3), res.getBoolean(4), res.getDate(5), res.getFloat(6), res.getBoolean(7)));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return presences;
 	}
 
 }
