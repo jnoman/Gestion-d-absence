@@ -218,14 +218,40 @@ public class DatabaseConnection implements InterfaceDb {
 
 	@Override
 	public ArrayList<Presence> getListAbsence(int idApprenant) {
-		// TODO Auto-generated method stub
-		return null;
+		ArrayList<Presence> presences = new ArrayList<Presence>();
+		try {
+			Database con = new Database();
+			Connection cnx = con.getConnection();
+			String sql = "select * from presence WHERE justifier is NULL and absence=1 and id_apprenant=" + idApprenant;
+			Statement statement = cnx.createStatement();
+			ResultSet res = statement.executeQuery(sql);
+			while (res.next()) {
+				presences.add(new Presence(res.getInt(1), idApprenant, res.getInt(3), res.getBoolean(4), res.getString(5), res.getFloat(6), res.getBoolean(7)));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return presences;
 	}
 
 	@Override
-	public int justifierAbsence(int idPresence) {
-		// TODO Auto-generated method stub
-		return 0;
+	public int justifierAbsence(int idPresence, boolean justifier) {
+		int affectedRows = 0;
+		try {
+			Database con = new Database();
+			Connection cnx = con.getConnection();
+			String sql = "UPDATE `presence` SET `justifier`=? WHERE id=?";
+			PreparedStatement ps = cnx.prepareStatement(sql);
+			ps.setBoolean(1, justifier);
+			ps.setInt(2, idPresence);
+			affectedRows = ps.executeUpdate();
+			cnx.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		return affectedRows;
 	}
 
 	@Override

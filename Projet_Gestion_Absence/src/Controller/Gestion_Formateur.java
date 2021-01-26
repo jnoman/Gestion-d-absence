@@ -40,9 +40,9 @@ public class Gestion_Formateur implements Initializable {
 	@FXML	Label nom_user;
 	@FXML   ComboBox<Apprenant> comboBox;
     @FXML   javafx.scene.control.TextField txt_Field; 
-    @FXML RadioButton rdb1, rdb3;
+    @FXML RadioButton rdb, rdb1, rdb2, rdb3;
+    @FXML Label label_retard;
     float min;
-    @FXML RadioButton rdb2;
 	DatabaseConnection db;
 	Promo promo;
 	Formateur formateur;
@@ -54,6 +54,7 @@ public class Gestion_Formateur implements Initializable {
 		formateur = (Formateur)Main.logged;
 		promo = db.getPromotionsByForrmateur(formateur.getId());
 		txt_Field.setVisible(false);
+		label_retard.setVisible(false);
 	    ObservableList<Apprenant> list = FXCollections.observableArrayList();
 		list.addAll(db.getApprenant(promo.getId()));
 		comboBox.setItems(list);
@@ -77,9 +78,11 @@ public class Gestion_Formateur implements Initializable {
 	public void isSelected() {
 		if(rdb2.isSelected()){
 			txt_Field.setVisible(true);
+			label_retard.setVisible(true);
 		}
 		else {
 			txt_Field.setVisible(false);
+			label_retard.setVisible(false);
 		}
 		
 	}
@@ -90,11 +93,13 @@ public class Gestion_Formateur implements Initializable {
  	    int id_test = 0;
  	    try {
 	    if(!comboBox.getSelectionModel().getSelectedItem().toString().equals("") ){
-			if(rdb1.isSelected() ){
+	    	if(rdb.isSelected() ){
+				Presence Pre = new Presence(comboBox.getSelectionModel().getSelectedItem().getId(),formateur.getId(),false,formatter.format(date).toString(),0);
+				id_test = db.addAbsence(Pre);
+			} else if(rdb1.isSelected() ){
 				Presence Pre = new Presence(comboBox.getSelectionModel().getSelectedItem().getId(),formateur.getId(),true,formatter.format(date).toString(),420);
 				id_test = db.addAbsence(Pre);
-			}else {
-			      if(rdb2.isSelected()) {
+			}else if(rdb2.isSelected()) {
 			    	  if(!txt_Field.getText().toString().equals("")){
 			    	min	 = 	 Float.parseFloat(txt_Field.getText().toString());
 			     
@@ -102,12 +107,10 @@ public class Gestion_Formateur implements Initializable {
 					id_test = db.addAbsence(Pre);
 			    		  
 			    	  }
-			    }
-			      if(rdb3.isSelected()) {
+			} else if(rdb3.isSelected()) {
 			     
 					Presence Pre = new Presence(comboBox.getSelectionModel().getSelectedItem().getId(),formateur.getId(),true,formatter.format(date).toString(),180);	
 					id_test = db.addAbsence(Pre);
-			    }
 			}
 			if(id_test==1) {
 
