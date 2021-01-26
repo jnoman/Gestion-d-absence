@@ -57,7 +57,7 @@ CREATE TABLE `presence` (
   `id_apprenant` int(11) NOT NULL,
   `id_Formateur` int(11) NOT NULL,
   `absence` tinyint(1) DEFAULT NULL,
-  `Date_absence` varchar(30) NOT NULL,
+  `Date_absence` Date NOT NULL,
   `Duree` int(11) DEFAULT NULL,
   `justifier` tinyint(4) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;

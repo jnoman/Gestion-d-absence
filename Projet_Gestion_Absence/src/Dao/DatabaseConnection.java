@@ -43,7 +43,7 @@ public class DatabaseConnection implements InterfaceDb {
 			cnx.close();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			Main.getAlert("échec de la connection a base de donnée", "erreur");
+			Main.getAlert("ï¿½chec de la connection a base de donnï¿½e", "erreur");
 		}
 		return user;
 	}
@@ -134,13 +134,13 @@ public class DatabaseConnection implements InterfaceDb {
 			}
 			int affectedRows = ps.executeUpdate();
 			if (affectedRows == 0) {
-				throw new SQLException("La création de l'utilisateur a échoué, aucune ligne n'est affectée.");
+				throw new SQLException("La crï¿½ation de l'utilisateur a ï¿½chouï¿½, aucune ligne n'est affectï¿½e.");
 			}
 			try (ResultSet generatedKeys = ps.getGeneratedKeys()) {
 				if (generatedKeys.next()) {
 					ret = (int) generatedKeys.getLong(1);
 				} else {
-					throw new SQLException("La création de l'utilisateur a échoué, aucun ID obtenu.");
+					throw new SQLException("La crï¿½ation de l'utilisateur a ï¿½chouï¿½, aucun ID obtenu.");
 				}
 			}
 			cnx.close();
@@ -202,11 +202,11 @@ public class DatabaseConnection implements InterfaceDb {
 			ps.setInt(1, presence.getIdApprenat());
 			ps.setInt(2, presence.getIdFormateur());
 			ps.setBoolean(3, presence.getAbsence());
-			ps.setString(4, presence.getDateAbsence());
+			ps.setDate(4, presence.getDateAbsence());
 			ps.setFloat(5, presence.getDureAbsence());
 			affectedRows = ps.executeUpdate();
 			if (affectedRows == 0) {
-				throw new SQLException("La création de la presence a echouer");
+				throw new SQLException("La crï¿½ation de la presence a echouer");
 			}
 			cnx.close();
 		} catch (SQLException e) {
@@ -226,7 +226,7 @@ public class DatabaseConnection implements InterfaceDb {
 			Statement statement = cnx.createStatement();
 			ResultSet res = statement.executeQuery(sql);
 			while (res.next()) {
-				presences.add(new Presence(res.getInt(1), idApprenant, res.getInt(3), res.getBoolean(4), res.getString(5), res.getFloat(6), res.getBoolean(7)));
+				presences.add(new Presence(res.getInt(1), idApprenant, res.getInt(3), res.getBoolean(4), res.getDate(5), res.getFloat(6), res.getBoolean(7)));
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

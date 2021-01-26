@@ -1,12 +1,13 @@
 package Models;
 
+import java.sql.Date;
 
 public class Presence {
    private int id;
    private int idApprenat;
    private int idFormateur;
    private Boolean absence;
-   private String dateAbsence;
+   private Date dateAbsence;
    private float dureAbsence;
    private Boolean justifier;
    
@@ -35,10 +36,10 @@ public class Presence {
 	public void setAbsence(Boolean absence) {
 		this.absence = absence;
 	}
-	public String getDateAbsence() {
+	public Date getDateAbsence() {
 		return dateAbsence;
 	}
-	public void setDateAbsence(String dateAbsence) {
+	public void setDateAbsence(Date dateAbsence) {
 		this.dateAbsence = dateAbsence;
 	}
 	public float getDureAbsence() {
@@ -54,7 +55,7 @@ public class Presence {
 		this.justifier = justifier;
 	}
 	
-	public Presence(int id, int idApprenat, int idFormateur, Boolean absence, String dateAbsence, float dureAbsence, Boolean justifier) {
+	public Presence(int id, int idApprenat, int idFormateur, Boolean absence, Date dateAbsence, float dureAbsence, Boolean justifier) {
 		super();
 		this.id = id;
 		this.idApprenat = idApprenat;
@@ -65,7 +66,7 @@ public class Presence {
 		this.justifier = justifier;
 	}
 	
-	public Presence(int idApprenat, int idFormateur, Boolean absence, String dateAbsence, float dureAbsence){
+	public Presence(int idApprenat, int idFormateur, Boolean absence, Date dateAbsence, float dureAbsence){
 		super();
 		this.idApprenat = idApprenat;
 		this.idFormateur = idFormateur;
