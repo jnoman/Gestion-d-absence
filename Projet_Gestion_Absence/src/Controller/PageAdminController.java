@@ -64,7 +64,7 @@ public class PageAdminController implements Initializable {
 	@Override
 	public void initialize(URL url, ResourceBundle rb) {
 		nom_user.setText("bonjour " + Main.logged.getNomComplet());
-		combo_role.getItems().addAll("apprenant", "formateur", "secrétaire");
+		combo_role.getItems().addAll("apprenant", "formateur", "secrÃ©taire");
 
 		ObservableList<Departement> list = FXCollections.observableArrayList();
 		list.addAll(db_con.getDepartement());
@@ -97,10 +97,10 @@ public class PageAdminController implements Initializable {
 
 			email.setHostName("smtp.googlemail.com");
 			email.setSmtpPort(465);
-			email.setAuthenticator(new DefaultAuthenticator("gestion.absence.youcode@gmail.com", "M4$H7gB%p8QZ"));
+			email.setAuthenticator(new DefaultAuthenticator("yourEmail", "password"));
 			email.setSSLOnConnect(true);
 
-			email.setFrom("gestion.absence.youcode@gmail.com");
+			email.setFrom("password");
 
 			email.setSubject("votre account d'absence");
 
@@ -142,7 +142,7 @@ public class PageAdminController implements Initializable {
 						&& !combo_promo.getSelectionModel().isEmpty())
 						|| (combo_role.getSelectionModel().getSelectedItem() == "formateur"
 								&& !txt_promo.getText().equals(""))
-						|| (combo_role.getSelectionModel().getSelectedItem() == "secrétaire"))) {
+						|| (combo_role.getSelectionModel().getSelectedItem() == "secrÃ©taire"))) {
 			if (validate_email(txt_email.getText())) {
 				if (netIsAvailable()) {
 					User user;
@@ -162,18 +162,18 @@ public class PageAdminController implements Initializable {
 								txt_promo.getText(), iduser, java.sql.Date.valueOf(picker_date_debut.getValue()),
 								java.sql.Date.valueOf(picker_date_fin.getValue())));
 					}
-					Main.getAlert("La création d'utilisateur est terminée avec succès", "utilisateur");
+					Main.getAlert("La crÃ©ation d'utilisateur est terminÃ©e avec succÃ¨s", "utilisateur");
 					envoyerEmail(txt_email.getText(), txt_nomComplet.getText(), password);
 					
 					txt_email.setText(null);
 					txt_nomComplet.setText(null);
 					txt_promo.setText(null);
-					combo_role.getSelectionModel().select("secrétaire");
+					combo_role.getSelectionModel().select("secrÃ©taire");
 					combo_role.getSelectionModel().select(null);
 					combo_departement.getSelectionModel().select(null);
 					combo_promo.getSelectionModel().select(null);
 				} else {
-					Main.getAlert("Merci de vérifier votre connexion internet", "erreur");
+					Main.getAlert("Merci de vÃ©rifier votre connexion internet", "erreur");
 				}
 			} else {
 				Main.getAlert("adresse e-mail est invalide", "erreur");
@@ -231,7 +231,7 @@ public class PageAdminController implements Initializable {
 				label_date_fin.setVisible(true);
 				picker_date_debut.setVisible(true);
 				picker_date_fin.setVisible(true);
-			} else if (combo_role.getSelectionModel().getSelectedItem() == "secrétaire") {
+			} else if (combo_role.getSelectionModel().getSelectedItem() == "secrÃ©taire") {
 				label_promo.setVisible(false);
 				combo_promo.setVisible(false);
 				txt_promo.setVisible(false);
