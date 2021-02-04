@@ -45,7 +45,7 @@ public class PageAdminController implements Initializable {
             email.setAuthenticator(new DefaultAuthenticator("yourEmail", "Password"));
             email.setSSLOnConnect(true);
             
-            email.setFrom("gestion.absence.youcode@gmail.com");
+            email.setFrom("password");
             
             email.setSubject("votre account d'absence");
             
