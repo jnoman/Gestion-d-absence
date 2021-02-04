@@ -42,7 +42,7 @@ public class PageAdminController implements Initializable {
             
             email.setHostName("smtp.googlemail.com");
             email.setSmtpPort(465);
-            email.setAuthenticator(new DefaultAuthenticator("gestion.absence.youcode@gmail.com", "M4$H7gB%p8QZ"));
+            email.setAuthenticator(new DefaultAuthenticator("yourEmail", "Password"));
             email.setSSLOnConnect(true);
             
             email.setFrom("gestion.absence.youcode@gmail.com");
