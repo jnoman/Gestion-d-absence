@@ -84,7 +84,7 @@ public class PageSecretereController implements Initializable{
 	private void selectPromo(ActionEvent event) {
     	pane_absence.getChildren().clear();
     	ObservableList<Apprenant> list = FXCollections.observableArrayList();
-		list.addAll(db.getApprenant(combo_promo.getSelectionModel().getSelectedItem().getId()));
+		list.addAll(db.getApprenant_Secretaire(combo_promo.getSelectionModel().getSelectedItem().getId()));
 		combo_apprenant.setItems(list);
 		combo_apprenant.setConverter(new StringConverter<Apprenant>() {
 
@@ -108,7 +108,12 @@ public class PageSecretereController implements Initializable{
     	pane_absence.getChildren().clear();
     	ev = event;
     	listAbsence = new ArrayList<Presence>();
-    	listAbsence.addAll(db.getListAbsence(combo_apprenant.getSelectionModel().getSelectedItem().getId()));
+    	try {
+    		listAbsence.addAll(db.getListAbsence(combo_apprenant.getSelectionModel().getSelectedItem().getId()));
+    	}catch(Exception e) {
+    		//null
+    	}
+    	
     	y=10;
     	for (Presence presence : listAbsence) {
     		x=10;
@@ -118,9 +123,9 @@ public class PageSecretereController implements Initializable{
 			x+=110;
 			Label duree = new Label(presence.getDateAbsence().toString());
 			if (presence.getDureAbsence() == 420) {
-				duree.setText("absence journée");
+				duree.setText("absence journee");
 			} else if (presence.getDureAbsence() == 180){
-				duree.setText("absence demi journée");
+				duree.setText("absence demi journee");
 			} else {
 				duree.setText("retard "+presence.getDureAbsence()+" minute");
 			}

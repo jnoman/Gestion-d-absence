@@ -43,7 +43,7 @@ public class DatabaseConnection implements InterfaceDb {
 			cnx.close();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			Main.getAlert("échec de la connection a base de donnée", "erreur");
+			Main.getAlert("ï¿½chec de la connection a base de donnï¿½e", "erreur");
 		}
 		return user;
 	}
@@ -99,7 +99,7 @@ public class DatabaseConnection implements InterfaceDb {
 			while (res.next()) {
 				promo = new Promo(res.getInt(1), res.getInt(5), res.getString(2), res.getInt(6), res.getDate(3),res.getDate(4));
 			}
-		} catch (SQLException e) {
+		}catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
@@ -134,13 +134,13 @@ public class DatabaseConnection implements InterfaceDb {
 			}
 			int affectedRows = ps.executeUpdate();
 			if (affectedRows == 0) {
-				throw new SQLException("La création de l'utilisateur a échoué, aucune ligne n'est affectée.");
+				throw new SQLException("La crï¿½ation de l'utilisateur a ï¿½chouï¿½, aucune ligne n'est affectï¿½e.");
 			}
 			try (ResultSet generatedKeys = ps.getGeneratedKeys()) {
 				if (generatedKeys.next()) {
 					ret = (int) generatedKeys.getLong(1);
 				} else {
-					throw new SQLException("La création de l'utilisateur a échoué, aucun ID obtenu.");
+					throw new SQLException("La crï¿½ation de l'utilisateur a ï¿½chouï¿½, aucun ID obtenu.");
 				}
 			}
 			cnx.close();
@@ -177,11 +177,34 @@ public class DatabaseConnection implements InterfaceDb {
 		try {
 			Database con = new Database();
 			Connection cnx = con.getConnection();
-			String sql = "SELECT * FROM `user` WHERE Role='apprenant' and id_promo=" + idPromo;
+			System.out.println(idPromo);
+			String sql = "SELECT * FROM user WHERE Role='apprenant' and id_promo= " + idPromo + " and id not in (SELECT id_apprenant from presence where Date_absence= CURRENT_DATE)";
 			Statement statement = cnx.createStatement();
 			ResultSet res = statement.executeQuery(sql);
 			while (res.next()) {
-				apprenants.add(new Apprenant(res.getInt(1), res.getString(2), res.getString(3), idPromo));
+				apprenants.add(new Apprenant(res.getInt(1), res.getString(2), res.getString(3)));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return apprenants;
+	}
+	
+	
+	
+	
+	public ArrayList<Apprenant> getApprenant_Secretaire(int idPromo) {
+		ArrayList<Apprenant> apprenants = new ArrayList<Apprenant>();
+		try {
+			Database con = new Database();
+			Connection cnx = con.getConnection();
+			System.out.println(idPromo);
+			String sql = "SELECT * FROM user WHERE Role='apprenant' and id_promo= " + idPromo;
+			Statement statement = cnx.createStatement();
+			ResultSet res = statement.executeQuery(sql);
+			while (res.next()) {
+				apprenants.add(new Apprenant(res.getInt(1), res.getString(2), res.getString(3)));
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -206,7 +229,7 @@ public class DatabaseConnection implements InterfaceDb {
 			ps.setFloat(5, presence.getDureAbsence());
 			affectedRows = ps.executeUpdate();
 			if (affectedRows == 0) {
-				throw new SQLException("La création de la presence a echouer");
+				throw new SQLException("La crï¿½ation de la presence a echouer");
 			}
 			cnx.close();
 		} catch (SQLException e) {

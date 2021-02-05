@@ -9,66 +9,73 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="525.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.PageAdminController">
+<AnchorPane id="AnchorPane" prefHeight="500.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.PageAdminController">
    <children>
-      <Pane layoutY="-9.0" prefHeight="540.0" prefWidth="84.0" style="-fx-background-color: gray;" />
-      <Label fx:id="nom_user" layoutX="118.0" layoutY="30.0" text="nom" textFill="#9f9898">
+      <Pane prefHeight="500.0" prefWidth="332.0" style="-fx-background-color: #400629;">
+         <children>
+            <Label layoutX="75.0" layoutY="182.0" text="Vous êtes connectez autant que" textFill="WHITE">
+               <font>
+                  <Font name="Segoe UI" size="15.0" />
+               </font>
+            </Label>
+            <Label layoutX="111.0" layoutY="213.0" text="Adminstrateur" textFill="WHITE">
+               <font>
+                  <Font name="Segoe Print" size="17.0" />
+               </font>
+            </Label>
+            <Label layoutX="93.0" layoutY="118.0" text="Bienvenue!" textFill="WHITE">
+               <font>
+                  <Font name="Segoe UI Black" size="29.0" />
+               </font>
+            </Label>
+         </children></Pane>
+      <Label fx:id="nom_user" layoutX="376.0" layoutY="35.0" text="nom" textFill="#9f9898">
          <font>
-            <Font name="Arial Bold" size="30.0" />
+            <Font name="Segoe UI" size="30.0" />
          </font>
       </Label>
-      <Label layoutX="150.0" layoutY="210.0" text="role">
+      <Label layoutX="420.0" layoutY="230.0" text="Rôle">
          <font>
-            <Font size="18.0" />
+            <Font name="Segoe UI" size="16.0" />
          </font>
       </Label>
-      <Label layoutX="150.0" layoutY="170.0" text="département">
+      <Label layoutX="361.0" layoutY="185.0" text="Département">
          <font>
-            <Font size="18.0" />
+            <Font name="Segoe UI" size="16.0" />
          </font>
       </Label>
-      <Label layoutX="150.0" layoutY="90.0" text="nom Complet">
+      <Button fx:id="btnAjouter" layoutX="397.0" layoutY="434.0" mnemonicParsing="false" onAction="#ajouter" prefHeight="25.0" prefWidth="141.0" style="-fx-background-color: #400629;" text="Ajouter" textFill="WHITE">
          <font>
-            <Font size="18.0" />
-         </font>
-      </Label>
-      <Label layoutX="150.0" layoutY="130.0" text="email">
-         <font>
-            <Font size="18.0" />
-         </font>
-      </Label>
-      <Button fx:id="btnAjouter" layoutX="189.0" layoutY="424.0" mnemonicParsing="false" onAction="#ajouter" prefHeight="25.0" prefWidth="141.0" style="-fx-background-color: #9f9898;" text="ajouter">
-         <font>
-            <Font name="Arial Black" size="16.0" />
+            <Font name="Segoe UI" size="15.0" />
          </font>
       </Button>
-      <Button fx:id="btndeconnexion" layoutX="376.0" layoutY="424.0" mnemonicParsing="false" onAction="#deconnexion" prefHeight="25.0" prefWidth="141.0" style="-fx-background-color: #9f9898;" text="déconnexion">
+      <Button fx:id="btndeconnexion" layoutX="584.0" layoutY="434.0" mnemonicParsing="false" onAction="#deconnexion" prefHeight="25.0" prefWidth="141.0" style="-fx-background-color: #400629;" text="Déconnexion" textFill="WHITE">
          <font>
-            <Font name="Arial Black" size="16.0" />
+            <Font name="Segoe UI" size="16.0" />
          </font>
       </Button>
-      <ComboBox fx:id="combo_role" layoutX="350.0" layoutY="210.0" onAction="#listPromo" prefWidth="150.0" />
-      <TextField fx:id="txt_nomComplet" layoutX="350.0" layoutY="90.0" />
-      <TextField fx:id="txt_email" layoutX="350.0" layoutY="130.0" />
-      <ComboBox fx:id="combo_departement" layoutX="350.0" layoutY="170.0" onAction="#listPromo" prefWidth="150.0" />
-      <ComboBox fx:id="combo_promo" layoutX="350.0" layoutY="250.0" prefWidth="150.0" visible="false" />
-      <TextField fx:id="txt_promo" layoutX="350.0" layoutY="250.0" visible="false" />
-      <Label fx:id="label_promo" layoutX="150.0" layoutY="250.0" text="promo" visible="false">
+      <ComboBox fx:id="combo_role" layoutX="550.0" layoutY="225.0" onAction="#listPromo" prefWidth="150.0" />
+      <TextField fx:id="txt_nomComplet" layoutX="500.0" layoutY="90.0" promptText="Nom complet" />
+      <TextField fx:id="txt_email" layoutX="500.0" layoutY="135.0" promptText="Email" />
+      <ComboBox fx:id="combo_departement" layoutX="550.0" layoutY="180.0" onAction="#listPromo" prefWidth="150.0" />
+      <ComboBox fx:id="combo_promo" layoutX="550.0" layoutY="275.0" prefWidth="150.0" visible="false" />
+      <TextField fx:id="txt_promo" layoutX="550.0" layoutY="275.0" visible="false" />
+      <Label fx:id="label_promo" layoutX="400.0" layoutY="280.0" text="promo" visible="false">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
-      <Label fx:id="label_date_debut" layoutX="150.0" layoutY="300.0" text="date debut promotion" visible="false">
+      <Label fx:id="label_date_debut" layoutX="340.0" layoutY="320.0" text="date debut promotion" visible="false">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
-      <Label fx:id="label_date_fin" layoutX="150.0" layoutY="340.0" text="date fin promotion" visible="false">
+      <Label fx:id="label_date_fin" layoutX="340.0" layoutY="360.0" text="date fin promotion" visible="false">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
-      <DatePicker fx:id="picker_date_debut" layoutX="350.0" layoutY="300.0" visible="false" />
-      <DatePicker fx:id="picker_date_fin" layoutX="350.0" layoutY="340.0" visible="false" />
+      <DatePicker fx:id="picker_date_debut" layoutX="550.0" layoutY="315.0" visible="false" />
+      <DatePicker fx:id="picker_date_fin" layoutX="550.0" layoutY="355.0" visible="false" />
    </children>
 </AnchorPane>

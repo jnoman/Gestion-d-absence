@@ -64,7 +64,7 @@ public class PageAdminController implements Initializable {
 	@Override
 	public void initialize(URL url, ResourceBundle rb) {
 		nom_user.setText("bonjour " + Main.logged.getNomComplet());
-		combo_role.getItems().addAll("apprenant", "formateur", "secr�taire");
+		combo_role.getItems().addAll("apprenant", "formateur", "secrétaire");
 
 		ObservableList<Departement> list = FXCollections.observableArrayList();
 		list.addAll(db_con.getDepartement());
@@ -97,10 +97,10 @@ public class PageAdminController implements Initializable {
 
 			email.setHostName("smtp.googlemail.com");
 			email.setSmtpPort(465);
-			email.setAuthenticator(new DefaultAuthenticator("yourEmail", "password"));
+			email.setAuthenticator(new DefaultAuthenticator("", ""));
 			email.setSSLOnConnect(true);
 
-			email.setFrom("yourEmail");
+			email.setFrom("");
 
 			email.setSubject("votre account d'absence");
 
@@ -162,18 +162,18 @@ public class PageAdminController implements Initializable {
 								txt_promo.getText(), iduser, java.sql.Date.valueOf(picker_date_debut.getValue()),
 								java.sql.Date.valueOf(picker_date_fin.getValue())));
 					}
-					Main.getAlert("La cr�ation d'utilisateur est termin�e avec succ�s", "utilisateur");
+					Main.getAlert("La création d'utilisateur est terminée avec succés", "utilisateur");
 					envoyerEmail(txt_email.getText(), txt_nomComplet.getText(), password);
 					
 					txt_email.setText(null);
 					txt_nomComplet.setText(null);
 					txt_promo.setText(null);
-					combo_role.getSelectionModel().select("secr�taire");
+					combo_role.getSelectionModel().select("secrétaire");
 					combo_role.getSelectionModel().select(null);
 					combo_departement.getSelectionModel().select(null);
 					combo_promo.getSelectionModel().select(null);
 				} else {
-					Main.getAlert("Merci de v�rifier votre connexion internet", "erreur");
+					Main.getAlert("Merci de vérifier votre connexion internet", "erreur");
 				}
 			} else {
 				Main.getAlert("adresse e-mail est invalide", "erreur");
@@ -231,7 +231,7 @@ public class PageAdminController implements Initializable {
 				label_date_fin.setVisible(true);
 				picker_date_debut.setVisible(true);
 				picker_date_fin.setVisible(true);
-			} else if (combo_role.getSelectionModel().getSelectedItem() == "secr�taire") {
+			} else if (combo_role.getSelectionModel().getSelectedItem() == "secrétaire") {
 				label_promo.setVisible(false);
 				combo_promo.setVisible(false);
 				txt_promo.setVisible(false);

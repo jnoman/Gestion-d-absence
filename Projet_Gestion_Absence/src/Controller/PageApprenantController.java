@@ -11,6 +11,7 @@ import Dao.DatabaseConnection;
 import Models.Presence;
 import application.Main;
 
+import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -23,7 +24,11 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
@@ -31,6 +36,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.Pane;
+import javafx.stage.Stage;
 import javafx.util.StringConverter;
 
 /**
@@ -88,6 +94,7 @@ private Apprenant apprenant;
 
     @FXML
     private void selectMois(ActionEvent event) {
+    	pane_fiche.getChildren().clear();
     	System.out.println(mois.getSelectionModel().getSelectedItem().getId());
     	ArrayList<Presence> presences =new ArrayList<Presence>();
     	DatabaseConnection db =new DatabaseConnection();
@@ -103,11 +110,11 @@ private Apprenant apprenant;
 			x+=110;
 			Label duree = new Label(presence.getDateAbsence().toString());
 			if (presence.getAbsence() == false) {
-				duree.setText("Présent");
+				duree.setText("Present");
 			} else if (presence.getDureAbsence() == 420) {
-				duree.setText("absence journée");
+				duree.setText("absence journee");
 			} else if (presence.getDureAbsence() == 180){
-				duree.setText("absence demi journée");
+				duree.setText("absence demi journee");
 			} else {
 				duree.setText("retard "+presence.getDureAbsence()+" minute");
 			}
@@ -118,5 +125,13 @@ private Apprenant apprenant;
 			y=y+40;
 		}
     }
+	@FXML
+	private void deconnexion(ActionEvent event) throws IOException {
+		Parent PageApprenant = FXMLLoader.load(getClass().getResource("../View/pageLogin.fxml"));
+		Scene s = new Scene(PageApprenant);
+		Stage page = (Stage) ((Node) event.getSource()).getScene().getWindow();
+		page.setScene(s);
+		page.show();
+	}
     
 }

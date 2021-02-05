@@ -16,6 +16,9 @@ public class Apprenant extends User {
 		super(id, nomComplet, email);
 		this.idPromotion = idPromotion;
 	}
+	public Apprenant(int id, String nomComplet, String email){
+		super(id, nomComplet, email);
+	}
 	
 	public Apprenant(String nomComplet, String email, String password, int idPromotion) {
 		super(nomComplet, email, password);
